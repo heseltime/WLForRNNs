@@ -1,0 +1,3487 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    185231,       3479]
+NotebookOptionsPosition[    183165,       3434]
+NotebookOutlinePosition[    183571,       3450]
+CellTagsIndexPosition[    183528,       3447]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Quick LSTM Tests", "Title",
+ CellChangeTimes->{{3.9172433246977158`*^9, 
+  3.917243327080761*^9}},ExpressionUUID->"eb4ffc4f-a992-354f-8d07-\
+131e8689b846"],
+
+Cell["\<\
+Courtesy of \
+https://www.wolfram.com/language/12/neural-network-framework/work-flexibly-\
+with-recurrent-nets.html\
+\>", "Text",
+ CellChangeTimes->{{3.917243333591692*^9, 
+  3.917243349952341*^9}},ExpressionUUID->"e8e83650-b173-114a-b5b6-\
+63cb519fb677"],
+
+Cell[CellGroupData[{
+
+Cell["Basic Network", "Subtitle",
+ CellChangeTimes->{{3.9172433140507317`*^9, 3.9172433165189857`*^9}, {
+  3.917243360454893*^9, 
+  3.917243365829916*^9}},ExpressionUUID->"bda94f80-ac58-ad4f-ad3c-\
+34f242cf2c9b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"lstm", "=", 
+  RowBox[{"NetInitialize", "@", 
+   RowBox[{"LongShortTermMemoryLayer", "[", 
+    RowBox[{"2", ",", 
+     RowBox[{"\"\<Input\>\"", "->", 
+      RowBox[{"{", 
+       RowBox[{"\"\<Varying\>\"", ",", "2"}], "}"}]}]}], "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.9172428274744263`*^9, 3.917242827475422*^9}},
+ CellLabel->"In[62]:=",ExpressionUUID->"30dcc323-e1e4-e84c-a9ab-159985dab1a7"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["LongShortTermMemoryLayer",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[
+             
+             GraphicsComplexBox[{{0, 0}, {-0.5, 1}, {0.5, 1}, {1.5, 1}, {1, 
+               0}}, {{
+                Opacity[0.3], 
+                LineBox[{{1, 2}, {1, 3}, {1, 4}, {5, 2}, {5, 3}, {5, 4}}]}, {
+                AbsolutePointSize[5], 
+                RGBColor[0.33, 0.33, 0.33], 
+                PointBox[{1, 5, 2, 3, 4}]}}], ImageSize -> 37], 
+            GridBox[{{
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"Input\"", FrameStyle -> GrayLevel[0, 0], FrameMargins -> 
+                    0, ContentPadding -> False, BaselinePosition -> 0, 
+                    StripOnInput -> False], True -> 
+                    FrameBox[
+                    "\"Input\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"Input"}, InputForm]], Method -> "Preemptive", 
+                    PassEventsDown -> Automatic, PassEventsUp -> True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"Input\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, 
+                    GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"Input"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TagBox[
+                  TemplateBox[{"\[ThinSpace]", "\" \"", "\"matrix\"", 
+                    StyleBox[
+                    TemplateBox[{"\"(\[VeryThinSpace]size: \"", 
+                    StyleBox["\"n\"", Italic, StripOnInput -> False], 
+                    "\"\[Times]2\[VeryThinSpace])\""}, "RowDefault"], 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                   "RowWithSeparators"], Short], "SummaryItem"], 
+                "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"Output\"", FrameStyle -> GrayLevel[0, 0], FrameMargins -> 
+                    0, ContentPadding -> False, BaselinePosition -> 0, 
+                    StripOnInput -> False], True -> 
+                    FrameBox[
+                    "\"Output\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"Output"}, InputForm]], Method -> "Preemptive", 
+                    PassEventsDown -> Automatic, PassEventsUp -> True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"Output\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"Output"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TagBox[
+                  TemplateBox[{"\[ThinSpace]", "\" \"", "\"matrix\"", 
+                    StyleBox[
+                    TemplateBox[{"\"(\[VeryThinSpace]size: \"", 
+                    StyleBox["\"n\"", Italic, StripOnInput -> False], 
+                    "\"\[Times]2\[VeryThinSpace])\""}, "RowDefault"], 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                   "RowWithSeparators"], Short], "SummaryItem"], 
+                "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[
+             
+             GraphicsComplexBox[{{0, 0}, {-0.5, 1}, {0.5, 1}, {1.5, 1}, {1, 
+               0}}, {{
+                Opacity[0.3], 
+                LineBox[{{1, 2}, {1, 3}, {1, 4}, {5, 2}, {5, 3}, {5, 4}}]}, {
+                AbsolutePointSize[5], 
+                RGBColor[0.33, 0.33, 0.33], 
+                PointBox[{1, 5, 2, 3, 4}]}}], ImageSize -> 37], 
+            GridBox[{{
+               TagBox[
+                ItemBox[
+                 StyleBox["Parameters", Bold]], "SummaryItem"], 
+               TagBox[
+                ItemBox[""], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"OutputSize\"", FrameStyle -> GrayLevel[0, 0], 
+                    FrameMargins -> 0, ContentPadding -> False, 
+                    BaselinePosition -> 0, StripOnInput -> False], True -> 
+                    FrameBox[
+                    "\"OutputSize\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"OutputSize"}, InputForm]], Method -> 
+                    "Preemptive", PassEventsDown -> Automatic, PassEventsUp -> 
+                    True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"OutputSize\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"OutputSize"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox["2", "SummaryItem"], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"Dropout\"", FrameStyle -> GrayLevel[0, 0], 
+                    FrameMargins -> 0, ContentPadding -> False, 
+                    BaselinePosition -> 0, StripOnInput -> False], True -> 
+                    FrameBox[
+                    "\"Dropout\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"Dropout"}, InputForm]], Method -> "Preemptive",
+                     PassEventsDown -> Automatic, PassEventsUp -> True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"Dropout\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"Dropout"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox["\"None\"", "SummaryItem"], "SummaryItem"]}, {
+               TagBox[
+                ItemBox[
+                 StyleBox["Arrays", Bold], 
+                 Frame -> {{False, False}, {False, True}}, FrameStyle -> 
+                 GrayLevel[0.85]], "SummaryItem"], 
+               TagBox[
+                ItemBox[
+                 StyleBox[
+                  
+                  GraphicsBox[{}, ImageSize -> {1, 11}, 
+                   BaselinePosition -> (Scaled[0.] -> Baseline)], 
+                  "CacheGraphics" -> False], 
+                 Frame -> {{False, False}, {False, True}}, FrameStyle -> 
+                 GrayLevel[0.85]], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"InputGateInputWeights\"", FrameStyle -> 
+                    GrayLevel[0, 0], FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False], 
+                    True -> FrameBox[
+                    "\"InputGateInputWeights\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"InputGateInputWeights"}, InputForm]], Method -> 
+                    "Preemptive", PassEventsDown -> Automatic, PassEventsUp -> 
+                    True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"InputGateInputWeights\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"InputGateInputWeights"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TemplateBox[{"\[ThinSpace]", "\" \"", "\"matrix\"", 
+                   StyleBox[
+                   "\"(\[VeryThinSpace]size: 2\[Times]2\[VeryThinSpace])\"", 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                  "RowWithSeparators"], "SummaryItem"], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"InputGateStateWeights\"", FrameStyle -> 
+                    GrayLevel[0, 0], FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False], 
+                    True -> FrameBox[
+                    "\"InputGateStateWeights\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"InputGateStateWeights"}, InputForm]], Method -> 
+                    "Preemptive", PassEventsDown -> Automatic, PassEventsUp -> 
+                    True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"InputGateStateWeights\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"InputGateStateWeights"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TemplateBox[{"\[ThinSpace]", "\" \"", "\"matrix\"", 
+                   StyleBox[
+                   "\"(\[VeryThinSpace]size: 2\[Times]2\[VeryThinSpace])\"", 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                  "RowWithSeparators"], "SummaryItem"], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"InputGateBiases\"", FrameStyle -> GrayLevel[0, 0], 
+                    FrameMargins -> 0, ContentPadding -> False, 
+                    BaselinePosition -> 0, StripOnInput -> False], True -> 
+                    FrameBox[
+                    "\"InputGateBiases\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"InputGateBiases"}, InputForm]], Method -> 
+                    "Preemptive", PassEventsDown -> Automatic, PassEventsUp -> 
+                    True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"InputGateBiases\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"InputGateBiases"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TemplateBox[{"\[ThinSpace]", "\" \"", "\"vector\"", 
+                   StyleBox["\"(\[VeryThinSpace]size: 2\[VeryThinSpace])\"", 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                  "RowWithSeparators"], "SummaryItem"], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"OutputGateInputWeights\"", FrameStyle -> 
+                    GrayLevel[0, 0], FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False], 
+                    True -> FrameBox[
+                    "\"OutputGateInputWeights\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"OutputGateInputWeights"}, InputForm]], Method -> 
+                    "Preemptive", PassEventsDown -> Automatic, PassEventsUp -> 
+                    True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"OutputGateInputWeights\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"OutputGateInputWeights"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TemplateBox[{"\[ThinSpace]", "\" \"", "\"matrix\"", 
+                   StyleBox[
+                   "\"(\[VeryThinSpace]size: 2\[Times]2\[VeryThinSpace])\"", 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                  "RowWithSeparators"], "SummaryItem"], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"OutputGateStateWeights\"", FrameStyle -> 
+                    GrayLevel[0, 0], FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False], 
+                    True -> FrameBox[
+                    "\"OutputGateStateWeights\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"OutputGateStateWeights"}, InputForm]], Method -> 
+                    "Preemptive", PassEventsDown -> Automatic, PassEventsUp -> 
+                    True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"OutputGateStateWeights\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"OutputGateStateWeights"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TemplateBox[{"\[ThinSpace]", "\" \"", "\"matrix\"", 
+                   StyleBox[
+                   "\"(\[VeryThinSpace]size: 2\[Times]2\[VeryThinSpace])\"", 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                  "RowWithSeparators"], "SummaryItem"], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"OutputGateBiases\"", FrameStyle -> GrayLevel[0, 0], 
+                    FrameMargins -> 0, ContentPadding -> False, 
+                    BaselinePosition -> 0, StripOnInput -> False], True -> 
+                    FrameBox[
+                    "\"OutputGateBiases\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"OutputGateBiases"}, InputForm]], Method -> 
+                    "Preemptive", PassEventsDown -> Automatic, PassEventsUp -> 
+                    True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"OutputGateBiases\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"OutputGateBiases"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TemplateBox[{"\[ThinSpace]", "\" \"", "\"vector\"", 
+                   StyleBox["\"(\[VeryThinSpace]size: 2\[VeryThinSpace])\"", 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                  "RowWithSeparators"], "SummaryItem"], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"ForgetGateInputWeights\"", FrameStyle -> 
+                    GrayLevel[0, 0], FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False], 
+                    True -> FrameBox[
+                    "\"ForgetGateInputWeights\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"ForgetGateInputWeights"}, InputForm]], Method -> 
+                    "Preemptive", PassEventsDown -> Automatic, PassEventsUp -> 
+                    True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"ForgetGateInputWeights\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"ForgetGateInputWeights"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TemplateBox[{"\[ThinSpace]", "\" \"", "\"matrix\"", 
+                   StyleBox[
+                   "\"(\[VeryThinSpace]size: 2\[Times]2\[VeryThinSpace])\"", 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                  "RowWithSeparators"], "SummaryItem"], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"ForgetGateStateWeights\"", FrameStyle -> 
+                    GrayLevel[0, 0], FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False], 
+                    True -> FrameBox[
+                    "\"ForgetGateStateWeights\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"ForgetGateStateWeights"}, InputForm]], Method -> 
+                    "Preemptive", PassEventsDown -> Automatic, PassEventsUp -> 
+                    True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"ForgetGateStateWeights\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"ForgetGateStateWeights"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TemplateBox[{"\[ThinSpace]", "\" \"", "\"matrix\"", 
+                   StyleBox[
+                   "\"(\[VeryThinSpace]size: 2\[Times]2\[VeryThinSpace])\"", 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                  "RowWithSeparators"], "SummaryItem"], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"ForgetGateBiases\"", FrameStyle -> GrayLevel[0, 0], 
+                    FrameMargins -> 0, ContentPadding -> False, 
+                    BaselinePosition -> 0, StripOnInput -> False], True -> 
+                    FrameBox[
+                    "\"ForgetGateBiases\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"ForgetGateBiases"}, InputForm]], Method -> 
+                    "Preemptive", PassEventsDown -> Automatic, PassEventsUp -> 
+                    True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"ForgetGateBiases\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"ForgetGateBiases"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TemplateBox[{"\[ThinSpace]", "\" \"", "\"vector\"", 
+                   StyleBox["\"(\[VeryThinSpace]size: 2\[VeryThinSpace])\"", 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                  "RowWithSeparators"], "SummaryItem"], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"MemoryGateInputWeights\"", FrameStyle -> 
+                    GrayLevel[0, 0], FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False], 
+                    True -> FrameBox[
+                    "\"MemoryGateInputWeights\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"MemoryGateInputWeights"}, InputForm]], Method -> 
+                    "Preemptive", PassEventsDown -> Automatic, PassEventsUp -> 
+                    True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"MemoryGateInputWeights\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"MemoryGateInputWeights"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TemplateBox[{"\[ThinSpace]", "\" \"", "\"matrix\"", 
+                   StyleBox[
+                   "\"(\[VeryThinSpace]size: 2\[Times]2\[VeryThinSpace])\"", 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                  "RowWithSeparators"], "SummaryItem"], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"MemoryGateStateWeights\"", FrameStyle -> 
+                    GrayLevel[0, 0], FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False], 
+                    True -> FrameBox[
+                    "\"MemoryGateStateWeights\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"MemoryGateStateWeights"}, InputForm]], Method -> 
+                    "Preemptive", PassEventsDown -> Automatic, PassEventsUp -> 
+                    True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"MemoryGateStateWeights\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"MemoryGateStateWeights"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TemplateBox[{"\[ThinSpace]", "\" \"", "\"matrix\"", 
+                   StyleBox[
+                   "\"(\[VeryThinSpace]size: 2\[Times]2\[VeryThinSpace])\"", 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                  "RowWithSeparators"], "SummaryItem"], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"MemoryGateBiases\"", FrameStyle -> GrayLevel[0, 0], 
+                    FrameMargins -> 0, ContentPadding -> False, 
+                    BaselinePosition -> 0, StripOnInput -> False], True -> 
+                    FrameBox[
+                    "\"MemoryGateBiases\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"MemoryGateBiases"}, InputForm]], Method -> 
+                    "Preemptive", PassEventsDown -> Automatic, PassEventsUp -> 
+                    True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"MemoryGateBiases\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"MemoryGateBiases"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TemplateBox[{"\[ThinSpace]", "\" \"", "\"vector\"", 
+                   StyleBox["\"(\[VeryThinSpace]size: 2\[VeryThinSpace])\"", 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                  "RowWithSeparators"], "SummaryItem"], "SummaryItem"]}, {
+               TagBox[
+                ItemBox[
+                 StyleBox["Input Port", Bold], 
+                 Frame -> {{False, False}, {False, True}}, FrameStyle -> 
+                 GrayLevel[0.85]], "SummaryItem"], 
+               TagBox[
+                ItemBox[
+                 StyleBox[
+                  
+                  GraphicsBox[{}, ImageSize -> {1, 11}, 
+                   BaselinePosition -> (Scaled[0.] -> Baseline)], 
+                  "CacheGraphics" -> False], 
+                 Frame -> {{False, False}, {False, True}}, FrameStyle -> 
+                 GrayLevel[0.85]], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"Input\"", FrameStyle -> GrayLevel[0, 0], FrameMargins -> 
+                    0, ContentPadding -> False, BaselinePosition -> 0, 
+                    StripOnInput -> False], True -> 
+                    FrameBox[
+                    "\"Input\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"Input"}, InputForm]], Method -> "Preemptive", 
+                    PassEventsDown -> Automatic, PassEventsUp -> True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"Input\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"Input"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TagBox[
+                  TemplateBox[{"\[ThinSpace]", "\" \"", "\"matrix\"", 
+                    StyleBox[
+                    TemplateBox[{"\"(\[VeryThinSpace]size: \"", 
+                    StyleBox["\"n\"", Italic, StripOnInput -> False], 
+                    "\"\[Times]2\[VeryThinSpace])\""}, "RowDefault"], 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                   "RowWithSeparators"], Short], "SummaryItem"], 
+                "SummaryItem"]}, {
+               TagBox[
+                ItemBox[
+                 StyleBox["Output Port", Bold], 
+                 Frame -> {{False, False}, {False, True}}, FrameStyle -> 
+                 GrayLevel[0.85]], "SummaryItem"], 
+               TagBox[
+                ItemBox[
+                 StyleBox[
+                  
+                  GraphicsBox[{}, ImageSize -> {1, 11}, 
+                   BaselinePosition -> (Scaled[0.] -> Baseline)], 
+                  "CacheGraphics" -> False], 
+                 Frame -> {{False, False}, {False, True}}, FrameStyle -> 
+                 GrayLevel[0.85]], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"Output\"", FrameStyle -> GrayLevel[0, 0], FrameMargins -> 
+                    0, ContentPadding -> False, BaselinePosition -> 0, 
+                    StripOnInput -> False], True -> 
+                    FrameBox[
+                    "\"Output\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"Output"}, InputForm]], Method -> "Preemptive", 
+                    PassEventsDown -> Automatic, PassEventsUp -> True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"Output\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"Output"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TagBox[
+                  TemplateBox[{"\[ThinSpace]", "\" \"", "\"matrix\"", 
+                    StyleBox[
+                    TemplateBox[{"\"(\[VeryThinSpace]size: \"", 
+                    StyleBox["\"n\"", Italic, StripOnInput -> False], 
+                    "\"\[Times]2\[VeryThinSpace])\""}, "RowDefault"], 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                   "RowWithSeparators"], Short], "SummaryItem"], 
+                "SummaryItem"]}, {
+               TagBox[
+                ItemBox[
+                 StyleBox["States", Bold], 
+                 Frame -> {{False, False}, {False, True}}, FrameStyle -> 
+                 GrayLevel[0.85]], "SummaryItem"], 
+               TagBox[
+                ItemBox[
+                 StyleBox[
+                  
+                  GraphicsBox[{}, ImageSize -> {1, 11}, 
+                   BaselinePosition -> (Scaled[0.] -> Baseline)], 
+                  "CacheGraphics" -> False], 
+                 Frame -> {{False, False}, {False, True}}, FrameStyle -> 
+                 GrayLevel[0.85]], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"State\"", FrameStyle -> GrayLevel[0, 0], FrameMargins -> 
+                    0, ContentPadding -> False, BaselinePosition -> 0, 
+                    StripOnInput -> False], True -> 
+                    FrameBox[
+                    "\"State\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"State"}, InputForm]], Method -> "Preemptive", 
+                    PassEventsDown -> Automatic, PassEventsUp -> True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"State\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"State"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TemplateBox[{"\[ThinSpace]", "\" \"", "\"vector\"", 
+                   StyleBox["\"(\[VeryThinSpace]size: 2\[VeryThinSpace])\"", 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                  "RowWithSeparators"], "SummaryItem"], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TagBox[
+                    TooltipBox[
+                    TagBox[
+                    
+                    PaneSelectorBox[{
+                    False -> FrameBox[
+                    "\"CellState\"", FrameStyle -> GrayLevel[0, 0], 
+                    FrameMargins -> 0, ContentPadding -> False, 
+                    BaselinePosition -> 0, StripOnInput -> False], True -> 
+                    FrameBox[
+                    "\"CellState\"", Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    FrameStyle -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.], 
+                    RoundingRadius -> 3, FrameMargins -> 0, ContentPadding -> 
+                    False, BaselinePosition -> 0, StripOnInput -> False]}, 
+                    Dynamic[
+                    CurrentValue["MouseOver"]], FrameMargins -> 0, 
+                    ContentPadding -> False, BaselinePosition -> 0, ImageSize -> 
+                    Automatic, FrameMargins -> 0], 
+                    EventHandlerTag[{"MouseClicked" :> CopyToClipboard[
+                    ToString[{"CellState"}, InputForm]], Method -> 
+                    "Preemptive", PassEventsDown -> Automatic, PassEventsUp -> 
+                    True}]], 
+                    TagBox[
+                    GridBox[{{
+                    GraphicsBox[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    NCache[
+                    Rational[2, 45], 0.044444444444444446`]], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2,
+                     0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    StyleBox["\"path: \"", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], StripOnInput -> False], 
+                    RowBox[{"{", "\"CellState\"", "}"}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Center}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{0.2}}, "Rows" -> {{Automatic}}}], "Grid"], 
+                    TooltipStyle -> {
+                    Background -> 
+                    RGBColor[0.9098039215686274, 0.9529411764705882, 1.]}], 
+                    Annotation[#, 
+                    Grid[{{
+                    Graphics[{
+                    FaceForm[
+                    RGBColor[
+                    0.9607843137254902, 0.9607843137254902, 
+                    0.9607843137254902]], 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843], 
+                    Thickness[
+                    Rational[2, 45]], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                    0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}}, {{{10.5, 18.75}, {10.5, 
+                    18.}, {9., 18.}, {9., 15.75}, {13.5, 15.75}, {13.5, 
+                    18.}, {12., 18.}, {12., 18.75}}, {{6., 18.}, {6., 4.5}, {
+                    16.5, 4.5}, {16.5, 18.}, {14.25, 18.}, {14.25, 17.25}, {
+                    15.75, 17.25}, {15.75, 5.25}, {6.75, 5.25}, {6.75, 
+                    17.25}, {8.25, 17.25}, {8.25, 18.}}, {{9.75, 17.25}, {
+                    12.75, 17.25}, {12.75, 16.5}, {9.75, 16.5}}}], 
+                    
+                    FilledCurve[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                    0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                    0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{8.25, 
+                    14.25}, {14.25, 14.25}, {14.25, 13.5}, {8.25, 13.5}}, {{
+                    8.25, 12.}, {14.25, 12.}, {14.25, 11.25}, {8.25, 
+                    11.25}}, {{8.25, 9.75}, {14.25, 9.75}, {14.25, 9.}, {8.25,
+                     9.}}, {{8.25, 7.5}, {14.25, 7.5}, {14.25, 6.75}, {8.25, 
+                    6.75}}}]}, ImageSize -> 11], 
+                    Style["path: ", 
+                    RGBColor[
+                    0.5372549019607843, 0.5372549019607843, 
+                    0.5372549019607843]], {"CellState"}}}, 
+                    Alignment -> {Left, Center}, 
+                    Spacings -> {0.2, Automatic}], "Tooltip"]& ], "\":\""}, 
+                  "RowDefault"], "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TemplateBox[{"\[ThinSpace]", "\" \"", "\"vector\"", 
+                   StyleBox["\"(\[VeryThinSpace]size: 2\[VeryThinSpace])\"", 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                  "RowWithSeparators"], "SummaryItem"], "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  LongShortTermMemoryLayer[<|
+   "Type" -> "LongShortTermMemory", 
+    "Arrays" -> <|
+     "InputGateInputWeights" -> 
+      RawArray["Real32",{{-0.3594474792480469, -0.04992305114865303}, \
+{-1.127055048942566, 1.086535930633545}}], "InputGateStateWeights" -> 
+      RawArray["Real32",{{
+        1.8936456441879272`, -0.9311398267745972}, {-0.7739742994308472, 
+        0.10107943415641785`}}], "InputGateBiases" -> 
+      RawArray["Real32",{0., 0.}], "OutputGateInputWeights" -> 
+      RawArray["Real32",{{0.07365617156028748, -1.183066964149475}, {
+        0.025280077010393143`, 0.1203397884964943}}], 
+      "OutputGateStateWeights" -> 
+      RawArray["Real32",{{
+        0.6609201431274414, -0.5846812725067139}, {-0.06432054191827774, 
+        0.7307302355766296}}], "OutputGateBiases" -> 
+      RawArray["Real32",{0., 0.}], "ForgetGateInputWeights" -> 
+      RawArray["Real32",{{-0.25705358386039734`, 
+        0.13335390388965607`}, {-0.09626712650060654, \
+-0.059361495077610016`}}], "ForgetGateStateWeights" -> 
+      RawArray["Real32",{{0.3945872485637665, -1.528256893157959}, {
+        0.007056617643684149, -0.601770281791687}}], "ForgetGateBiases" -> 
+      RawArray["Real32",{1., 1.}], "MemoryGateInputWeights" -> 
+      RawArray["Real32",{{-0.6417962312698364, -0.7074763178825378}, {
+        0.34631121158599854`, 0.2705076336860657}}], "MemoryGateStateWeights" -> 
+      RawArray["Real32",{{-0.31929999589920044`, 0.8064671754837036}, {
+        0.10406340658664703`, 0.48510220646858215`}}], "MemoryGateBiases" -> 
+      RawArray["Real32",{0., 0.}]|>, 
+    "Parameters" -> <|
+     "OutputSize" -> 2, "Dropout" -> NeuralNetworks`ValidatedParameter[None], 
+      "$InputSize" -> 2, "$SequenceLength" -> 
+      NeuralNetworks`LengthVar[1066052189], "$CellStateConnectedQ" -> False|>,
+     "Inputs" -> <|"Input" -> NeuralNetworks`TensorT[{
+         NeuralNetworks`LengthVar[1066052189], 2}, NeuralNetworks`AtomT]|>, 
+    "Outputs" -> <|"Output" -> NeuralNetworks`TensorT[{
+         NeuralNetworks`LengthVar[1066052189], 2}, NeuralNetworks`RealT]|>, 
+    "States" -> <|
+     "State" -> NeuralNetworks`TensorT[{2}, NeuralNetworks`RealT], 
+      "CellState" -> NeuralNetworks`TensorT[{2}, NeuralNetworks`RealT]|>|>, <|
+   "Version" -> "14.0.2", "Unstable" -> False|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.9172428317724953`*^9},
+ CellLabel->"Out[62]=",ExpressionUUID->"f0c81918-4e87-c843-9c2e-cf88a2b82971"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"seq1", "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.1", ",", "0.4"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "0.2"}], ",", "0.7"}], "}"}]}], "}"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"seq2", "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.2", ",", 
+       RowBox[{"-", "0.3"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0.1", ",", "0.8"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "1.3"}], ",", 
+       RowBox[{"-", "0.6"}]}], "}"}]}], "}"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.917242852800707*^9, 3.9172428528026714`*^9}},
+ CellLabel->"In[63]:=",ExpressionUUID->"d4c26bf3-2334-5744-a67a-4823e159f7b3"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"result", "=", 
+  RowBox[{"lstm", "[", 
+   RowBox[{"{", 
+    RowBox[{"seq1", ",", "seq2"}], "}"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.9172428603559456`*^9, 3.9172428603569546`*^9}},
+ CellLabel->"In[65]:=",ExpressionUUID->"a69b10c4-2e1f-b34b-bbac-42bbe93b0865"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "0.0620257630944252`"}], ",", "0.04207432642579079`"}], 
+      "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "0.07385957986116409`"}], ",", "0.0826808288693428`"}], 
+      "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"0.024028116837143898`", ",", 
+       RowBox[{"-", "0.0021393345668911934`"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "0.06911572068929672`"}], ",", "0.08523260802030563`"}], 
+      "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"0.19029678404331207`", ",", 
+       RowBox[{"-", "0.11764524132013321`"}]}], "}"}]}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.917242861484476*^9},
+ CellLabel->"Out[65]=",ExpressionUUID->"8e65c9c2-fb2c-f94f-864b-b279c7c70790"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Classification", "Subtitle",
+ CellChangeTimes->{{3.9172433088022423`*^9, 3.917243309781389*^9}, {
+  3.917243369828665*^9, 
+  3.917243376084713*^9}},ExpressionUUID->"c03ec753-1fa9-d547-8bbd-\
+9e16e4e14fe7"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"net", "=", 
+  RowBox[{"NetInitialize", "@", 
+   RowBox[{"NetChain", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"EmbeddingLayer", "[", "3", "]"}], ",", 
+       RowBox[{"LongShortTermMemoryLayer", "[", "1", "]"}], ",", 
+       RowBox[{"SequenceLastLayer", "[", "]"}]}], "}"}], ",", 
+     RowBox[{"\"\<Input\>\"", "->", 
+      RowBox[{"NetEncoder", "[", "\"\<Characters\>\"", "]"}]}]}], 
+    "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.9172433802981834`*^9, 3.917243380299185*^9}},
+ CellLabel->"In[66]:=",ExpressionUUID->"0b81ce99-75a1-ca4e-92de-ade24be471d7"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["NetChain",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{
+              Thickness[0.014925373134328358`], {
+               RGBColor[0.729, 0.729, 0.729], 
+               Thickness[0.018686567164179105`], 
+               Opacity[1.], 
+               JoinForm[{"Miter", 10.}], 
+               
+               JoinedCurveBox[{{{0, 2, 0}}}, {{{23., 91.5}, {30., 91.5}}}, 
+                CurveClosed -> {0}]}, {
+               RGBColor[0.729, 0.729, 0.729], 
+               Thickness[0.018686567164179105`], 
+               Opacity[1.], 
+               JoinForm[{"Miter", 10.}], 
+               
+               JoinedCurveBox[{{{0, 2, 0}}}, {{{37., 91.5}, {44., 91.5}}}, 
+                CurveClosed -> {0}]}, {
+               FaceForm[{
+                 RGBColor[0.631, 0.8160000000000001, 0.498], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{15.5, 
+                103.5}, {23.5, 103.5}, {23.5, 79.5}, {15.5, 79.5}}}]}, {
+               FaceForm[{
+                 RGBColor[0.40800000000000003`, 0.627, 0.196], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                0}, {0, 1, 0}, {0, 1, 0}}}, {{{24., 104.}, {15., 104.}, {15., 
+                79.}, {24., 79.}}, {{23., 80.}, {16., 80.}, {16., 103.}, {23.,
+                 103.}}}]}, {
+               FaceForm[{
+                 RGBColor[0.38, 0.753, 0.89], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{29.5, 
+                103.5}, {37.5, 103.5}, {37.5, 79.5}, {29.5, 79.5}}}]}, {
+               FaceForm[{
+                 RGBColor[0.24300000000000002`, 0.608, 0.71], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                0}, {0, 1, 0}, {0, 1, 0}}}, {{{38., 104.}, {29., 104.}, {29., 
+                79.}, {38., 79.}}, {{37., 80.}, {30., 80.}, {30., 103.}, {37.,
+                 103.}}}]}, {
+               FaceForm[{
+                 RGBColor[0.584, 0.51, 0.8390000000000001], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{43.5, 
+                103.5}, {51.5, 103.5}, {51.5, 79.5}, {43.5, 79.5}}}]}, {
+               FaceForm[{
+                 RGBColor[0.4, 0.396, 0.659], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                0}, {0, 1, 0}, {0, 1, 0}}}, {{{52., 104.}, {43., 104.}, {43., 
+                79.}, {52., 79.}}, {{51., 80.}, {44., 80.}, {44., 103.}, {51.,
+                 103.}}}]}, {
+               FaceForm[{
+                 RGBColor[0.549, 0.549, 0.549], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}}}, {{{28., 91.5}, {25., 
+                95.}, {25., 88.}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}}}, {{{42., 91.5}, {39., 
+                95.}, {39., 88.}}}]}}, ImageMargins -> 0, 
+             ImageSize -> {36, Automatic}, PlotRangePadding -> 0], 
+            GridBox[{{
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TemplateBox[{"\[ThinSpace]", "\" \"", 
+                    StyleBox["\"Input\"", 
+                    GrayLevel[0], StripOnInput -> False], "\"port\""}, 
+                    "RowWithSeparators"], "\":\""}, "RowDefault"], 
+                 "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox["\"string\"", "SummaryItem"], "SummaryItem"]}, {
+               TagBox[
+                StyleBox[
+                 TemplateBox[{
+                   TemplateBox[{"\[ThinSpace]", "\" \"", 
+                    StyleBox["\"Output\"", 
+                    GrayLevel[0], StripOnInput -> False], "\"port\""}, 
+                    "RowWithSeparators"], "\":\""}, "RowDefault"], 
+                 "SummaryItemAnnotation"], "SummaryItem"], 
+               TagBox[
+                StyleBox[
+                 TemplateBox[{"\[ThinSpace]", "\" \"", "\"vector\"", 
+                   StyleBox["\"(\[VeryThinSpace]size: 1\[VeryThinSpace])\"", 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                  "RowWithSeparators"], "SummaryItem"], "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{
+              Thickness[0.014925373134328358`], {
+               RGBColor[0.729, 0.729, 0.729], 
+               Thickness[0.018686567164179105`], 
+               Opacity[1.], 
+               JoinForm[{"Miter", 10.}], 
+               
+               JoinedCurveBox[{{{0, 2, 0}}}, {{{23., 91.5}, {30., 91.5}}}, 
+                CurveClosed -> {0}]}, {
+               RGBColor[0.729, 0.729, 0.729], 
+               Thickness[0.018686567164179105`], 
+               Opacity[1.], 
+               JoinForm[{"Miter", 10.}], 
+               
+               JoinedCurveBox[{{{0, 2, 0}}}, {{{37., 91.5}, {44., 91.5}}}, 
+                CurveClosed -> {0}]}, {
+               FaceForm[{
+                 RGBColor[0.631, 0.8160000000000001, 0.498], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{15.5, 
+                103.5}, {23.5, 103.5}, {23.5, 79.5}, {15.5, 79.5}}}]}, {
+               FaceForm[{
+                 RGBColor[0.40800000000000003`, 0.627, 0.196], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                0}, {0, 1, 0}, {0, 1, 0}}}, {{{24., 104.}, {15., 104.}, {15., 
+                79.}, {24., 79.}}, {{23., 80.}, {16., 80.}, {16., 103.}, {23.,
+                 103.}}}]}, {
+               FaceForm[{
+                 RGBColor[0.38, 0.753, 0.89], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{29.5, 
+                103.5}, {37.5, 103.5}, {37.5, 79.5}, {29.5, 79.5}}}]}, {
+               FaceForm[{
+                 RGBColor[0.24300000000000002`, 0.608, 0.71], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                0}, {0, 1, 0}, {0, 1, 0}}}, {{{38., 104.}, {29., 104.}, {29., 
+                79.}, {38., 79.}}, {{37., 80.}, {30., 80.}, {30., 103.}, {37.,
+                 103.}}}]}, {
+               FaceForm[{
+                 RGBColor[0.584, 0.51, 0.8390000000000001], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{43.5, 
+                103.5}, {51.5, 103.5}, {51.5, 79.5}, {43.5, 79.5}}}]}, {
+               FaceForm[{
+                 RGBColor[0.4, 0.396, 0.659], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                0}, {0, 1, 0}, {0, 1, 0}}}, {{{52., 104.}, {43., 104.}, {43., 
+                79.}, {52., 79.}}, {{51., 80.}, {44., 80.}, {44., 103.}, {51.,
+                 103.}}}]}, {
+               FaceForm[{
+                 RGBColor[0.549, 0.549, 0.549], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}}}, {{{28., 91.5}, {25., 
+                95.}, {25., 88.}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}}}, {{{42., 91.5}, {39., 
+                95.}, {39., 88.}}}]}}, ImageMargins -> 0, 
+             ImageSize -> {36, Automatic}, PlotRangePadding -> 0], 
+            GridBox[{{
+               TagBox[
+                
+                DynamicModuleBox[{
+                 NeuralNetworks`Private`NetChain`assoc3 = <|
+                   "Type" -> "Chain", 
+                    "Nodes" -> <|
+                    "1" -> <|
+                    "Type" -> "Embedding", 
+                    "Arrays" -> <|
+                    "Weights" -> NeuralNetworks`Private`DummyArray[{97, 3}]|>,
+                     "Parameters" -> <|
+                    "OutputDimensions" -> {3}, "ClassCount" -> 97, 
+                    "$Dimensions" -> {
+                    NeuralNetworks`LengthVar[1269222718]}, "$OutputDimension" -> 
+                    3|>, "Inputs" -> <|"Input" -> NeuralNetworks`TensorT[{
+                    NeuralNetworks`LengthVar[1269222718]}, 
+                    NeuralNetworks`IndexIntegerT[1, 97]]|>, 
+                    "Outputs" -> <|"Output" -> NeuralNetworks`TensorT[{
+                    NeuralNetworks`LengthVar[1269222718], 3}, 
+                    NeuralNetworks`RealT]|>|>, 
+                    "2" -> <|
+                    "Type" -> "LongShortTermMemory", 
+                    "Arrays" -> <|
+                    "InputGateInputWeights" -> 
+                    NeuralNetworks`Private`DummyArray[{1, 3}], 
+                    "InputGateStateWeights" -> 
+                    NeuralNetworks`Private`DummyArray[{1, 1}], 
+                    "InputGateBiases" -> 
+                    NeuralNetworks`Private`DummyArray[{1}], 
+                    "OutputGateInputWeights" -> 
+                    NeuralNetworks`Private`DummyArray[{1, 3}], 
+                    "OutputGateStateWeights" -> 
+                    NeuralNetworks`Private`DummyArray[{1, 1}], 
+                    "OutputGateBiases" -> 
+                    NeuralNetworks`Private`DummyArray[{1}], 
+                    "ForgetGateInputWeights" -> 
+                    NeuralNetworks`Private`DummyArray[{1, 3}], 
+                    "ForgetGateStateWeights" -> 
+                    NeuralNetworks`Private`DummyArray[{1, 1}], 
+                    "ForgetGateBiases" -> 
+                    NeuralNetworks`Private`DummyArray[{1}], 
+                    "MemoryGateInputWeights" -> 
+                    NeuralNetworks`Private`DummyArray[{1, 3}], 
+                    "MemoryGateStateWeights" -> 
+                    NeuralNetworks`Private`DummyArray[{1, 1}], 
+                    "MemoryGateBiases" -> 
+                    NeuralNetworks`Private`DummyArray[{1}]|>, 
+                    "Parameters" -> <|
+                    "OutputSize" -> 1, "Dropout" -> 
+                    NeuralNetworks`ValidatedParameter[None], "$InputSize" -> 
+                    3, "$SequenceLength" -> 
+                    NeuralNetworks`LengthVar[1269222718], 
+                    "$CellStateConnectedQ" -> False|>, 
+                    "Inputs" -> <|"Input" -> NeuralNetworks`TensorT[{
+                    NeuralNetworks`LengthVar[1269222718], 3}, 
+                    NeuralNetworks`RealT]|>, 
+                    "Outputs" -> <|"Output" -> NeuralNetworks`TensorT[{
+                    NeuralNetworks`LengthVar[1269222718], 1}, 
+                    NeuralNetworks`RealT]|>, 
+                    "States" -> <|
+                    "State" -> 
+                    NeuralNetworks`TensorT[{1}, NeuralNetworks`RealT], 
+                    "CellState" -> 
+                    NeuralNetworks`TensorT[{1}, NeuralNetworks`RealT]|>|>, 
+                    "3" -> <|
+                    "Type" -> "SequenceLast", "Arrays" -> <||>, 
+                    "Parameters" -> <||>, 
+                    "Inputs" -> <|"Input" -> NeuralNetworks`TensorT[{
+                    NeuralNetworks`LengthVar[1269222718], 1}, 
+                    NeuralNetworks`RealT]|>, 
+                    "Outputs" -> <|
+                    "Output" -> 
+                    NeuralNetworks`TensorT[{1}, NeuralNetworks`RealT]|>|>|>, 
+                    "Edges" -> {
+                    NeuralNetworks`NetPath["Nodes", "1", "Inputs", "Input"] -> 
+                    NeuralNetworks`NetPath["Inputs", "Input"], 
+                    NeuralNetworks`NetPath["Nodes", "2", "Inputs", "Input"] -> 
+                    NeuralNetworks`NetPath["Nodes", "1", "Outputs", "Output"],
+                     NeuralNetworks`NetPath["Nodes", "3", "Inputs", "Input"] -> 
+                    NeuralNetworks`NetPath["Nodes", "2", "Outputs", "Output"],
+                     NeuralNetworks`NetPath["Outputs", "Output"] -> 
+                    NeuralNetworks`NetPath[
+                    "Nodes", "3", "Outputs", "Output"]}, 
+                    "Inputs" -> <|
+                    "Input" -> <|"Form" -> NeuralNetworks`TensorT[{
+                    NeuralNetworks`LengthVar[1269222718]}, 
+                    NeuralNetworks`IndexIntegerT[1, 97]], "Type" -> 
+                    "Characters", "Encoding" -> 
+                    NeuralNetworks`ValidatedParameter[
+                    MXNetLink`CharacterEncodingData[
+                    1, RawArray["UnsignedInteger8",{128, 0, 0, 128, 128, 128, 
+                    128, 128, 128, 128, 128, 1, 2, 128, 128, 128, 128, 128, 
+                    128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 
+                    128, 128, 128, 128, 128, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 
+                    13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 
+                    27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 
+                    41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 
+                    55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 
+                    69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 
+                    83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 
+                    97, 128}], 
+                    RawArray["UnsignedInteger8",{9, 10, 32, 33, 34, 35, 36, 
+                    37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 
+                    51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 
+                    65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 
+                    79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 
+                    93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 
+                    106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 
+                    117, 118, 119, 120, 121, 122, 123, 124, 125, 126}], 97, 
+                    Automatic]], "OutputForm" -> "Index", "IgnoreCase" -> 
+                    False, "Count" -> 97, "TargetLength" -> All, 
+                    "$TargetLength" -> NeuralNetworks`LengthVar[715248120], 
+                    "$Padding" -> Automatic, "$Version" -> "14.0.2"|>|>, 
+                    "Outputs" -> <|
+                    "Output" -> 
+                    NeuralNetworks`TensorT[{1}, NeuralNetworks`RealT]|>, 
+                    "InteriorStates" -> <|{2, "State"} -> 
+                    NeuralNetworks`NetPath["Nodes", "2", "States", "State"], {
+                    2, "CellState"} -> 
+                    NeuralNetworks`NetPath[
+                    "Nodes", "2", "States", "CellState"]|>|>, 
+                  NeuralNetworks`Private`NetChain`opart, 
+                  NeuralNetworks`Private`NetChain`part, 
+                  NeuralNetworks`Private`NetChain`selected = Null}, 
+                 DynamicBox[
+                  GridBox[{{
+                    TagBox[
+                    TagBox[
+                    GridBox[{{
+                    TagBox[
+                    TagBox[
+                    "\"\"", Annotation[#, {"Inputs", "Input"}, "Mouse"]& ], 
+                    MouseAppearanceTag["LinkHand"]], 
+                    TagBox[
+                    TagBox[
+                    "\"Input\"", 
+                    Annotation[#, {"Inputs", "Input"}, "Mouse"]& ], 
+                    MouseAppearanceTag["LinkHand"]], 
+                    TagBox[
+                    TagBox[
+                    TagBox[
+                    GridBox[{{"\"string\""}, {
+                    TemplateBox[{"\"vector of \"", 
+                    StyleBox["\"n\"", Italic, StripOnInput -> False], 
+                    "\" indices \"", 
+                    StyleBox[
+                    
+                    TemplateBox[{"\"(\[VeryThinSpace]range: \"", "1", 
+                    "\"..\"", "97", "\"\[VeryThinSpace])\""}, "RowDefault"], 
+                    GrayLevel[0.5], StripOnInput -> False]}, "RowDefault"]}}, 
+                    GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                    BaselinePosition -> 2, DefaultBaseStyle -> "Column", 
+                    GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], 
+                    "Column"], Annotation[#, {"Inputs", "Input"}, "Mouse"]& ], 
+                    MouseAppearanceTag["LinkHand"]]}, {
+                    TagBox[
+                    TagBox[
+                    StyleBox["\"1\"", 
+                    GrayLevel[0.5], StripOnInput -> False], 
+                    Annotation[#, {"Nodes", "1"}, "Mouse"]& ], 
+                    MouseAppearanceTag["LinkHand"]], 
+                    TagBox[
+                    TagBox[
+                    StyleBox["EmbeddingLayer", 
+                    GrayLevel[0], StripOnInput -> False], 
+                    Annotation[#, {"Nodes", "1"}, "Mouse"]& ], 
+                    MouseAppearanceTag["LinkHand"]], 
+                    TagBox[
+                    TagBox[
+                    TemplateBox[{"\[ThinSpace]", "\" \"", "\"matrix\"", 
+                    StyleBox[
+                    TemplateBox[{"\"(\[VeryThinSpace]size: \"", 
+                    StyleBox["\"n\"", Italic, StripOnInput -> False], 
+                    "\"\[Times]3\[VeryThinSpace])\""}, "RowDefault"], 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                    "RowWithSeparators"], 
+                    Annotation[#, {"Nodes", "1"}, "Mouse"]& ], 
+                    MouseAppearanceTag["LinkHand"]]}, {
+                    TagBox[
+                    TagBox[
+                    StyleBox["\"2\"", 
+                    GrayLevel[0.5], StripOnInput -> False], 
+                    Annotation[#, {"Nodes", "2"}, "Mouse"]& ], 
+                    MouseAppearanceTag["LinkHand"]], 
+                    TagBox[
+                    TagBox[
+                    StyleBox["LongShortTermMemoryLayer", 
+                    GrayLevel[0], StripOnInput -> False], 
+                    Annotation[#, {"Nodes", "2"}, "Mouse"]& ], 
+                    MouseAppearanceTag["LinkHand"]], 
+                    TagBox[
+                    TagBox[
+                    TemplateBox[{"\[ThinSpace]", "\" \"", "\"matrix\"", 
+                    StyleBox[
+                    TemplateBox[{"\"(\[VeryThinSpace]size: \"", 
+                    StyleBox["\"n\"", Italic, StripOnInput -> False], 
+                    "\"\[Times]1\[VeryThinSpace])\""}, "RowDefault"], 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                    "RowWithSeparators"], 
+                    Annotation[#, {"Nodes", "2"}, "Mouse"]& ], 
+                    MouseAppearanceTag["LinkHand"]]}, {
+                    TagBox[
+                    TagBox[
+                    StyleBox["\"3\"", 
+                    GrayLevel[0.5], StripOnInput -> False], 
+                    Annotation[#, {"Nodes", "3"}, "Mouse"]& ], 
+                    MouseAppearanceTag["LinkHand"]], 
+                    TagBox[
+                    TagBox[
+                    StyleBox["SequenceLastLayer", 
+                    GrayLevel[0], StripOnInput -> False], 
+                    Annotation[#, {"Nodes", "3"}, "Mouse"]& ], 
+                    MouseAppearanceTag["LinkHand"]], 
+                    TagBox[
+                    TagBox[
+                    TemplateBox[{"\[ThinSpace]", "\" \"", "\"vector\"", 
+                    StyleBox["\"(\[VeryThinSpace]size: 1\[VeryThinSpace])\"", 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                    "RowWithSeparators"], 
+                    Annotation[#, {"Nodes", "3"}, "Mouse"]& ], 
+                    MouseAppearanceTag["LinkHand"]]}, {
+                    TagBox[
+                    TagBox[
+                    "\"\"", Annotation[#, {"Outputs", "Output"}, "Mouse"]& ], 
+                    MouseAppearanceTag["LinkHand"]], 
+                    TagBox[
+                    TagBox[
+                    "\"Output\"", 
+                    Annotation[#, {"Outputs", "Output"}, "Mouse"]& ], 
+                    MouseAppearanceTag["LinkHand"]], 
+                    TagBox[
+                    TagBox[
+                    TemplateBox[{"\[ThinSpace]", "\" \"", "\"vector\"", 
+                    StyleBox["\"(\[VeryThinSpace]size: 1\[VeryThinSpace])\"", 
+                    GrayLevel[0.5], StripOnInput -> False]}, 
+                    "RowWithSeparators"], 
+                    Annotation[#, {"Outputs", "Output"}, "Mouse"]& ], 
+                    MouseAppearanceTag["LinkHand"]]}}, 
+                    GridBoxAlignment -> {"Columns" -> {{Left}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {"Columns" -> {{1.1}}}], "Grid"], 
+                    EventHandlerTag[{"MouseClicked" :> If[
+                    ListQ[
+                    NeuralNetworks`Private`NetChain`part = MouseAnnotation[]],
+                     If[NeuralNetworks`Private`NetChain`opart === 
+                    NeuralNetworks`Private`NetChain`part, 
+                    NeuralNetworks`Private`NetChain`selected = Null; 
+                    NeuralNetworks`Private`NetChain`opart = Null, 
+                    NeuralNetworks`Private`NetChain`selected = 
+                    Part[NeuralNetworks`Private`NetChain`assoc3, 
+                    Apply[Sequence, NeuralNetworks`Private`NetChain`part]]; 
+                    NeuralNetworks`Private`NetChain`opart = 
+                    NeuralNetworks`Private`NetChain`part; Null]; Null], 
+                    Method -> "Preemptive", PassEventsDown -> Automatic, 
+                    PassEventsUp -> True}]]}, 
+                    NeuralNetworks`FormatSelectedParameterChain[
+                    NeuralNetworks`Private`NetChain`selected, 
+                    NeuralNetworks`Private`NetChain`part, <||>, {}]}, 
+                   GridBoxSpacings -> {"Columns" -> {{1}}}, 
+                   GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                   GridFrameMargins -> {{0, 0}, {0, 0}}], 
+                  TrackedSymbols :> {
+                   NeuralNetworks`Private`NetChain`selected}], 
+                 Initialization :> {NetChain}], "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  NetChain[<|
+   "Type" -> "Chain", 
+    "Nodes" -> <|
+     "1" -> <|"Type" -> "Embedding", 
+        "Arrays" -> <|"Weights" -> CompressedData["
+1:eJwViX841HccwF3lWImpTYqIpR93TlLGzn0+bypa5cyPY9YvOy0tSQ2FIc6v
+2MrDXJIflfSQn2tJyd33/SlptX5rFdl4lHpGbF3Dchyt/ni9nuf1vGxC9/iH
+TdHT04s2fCd/eaxHVJQ8PoD/PrbLI1Y4Rbyf8ndMfc+aAjT5bxF3UrmLxVhu
+g/C+a+BatopJr9swfX4VCQncT9rWxbL0OVWScfFv5IbddEiJGMZCyy85P84c
+agaC0Hiym2i1J7muTC+uevg0jW46wepvq9225I1j7CI+03s6mwl/zaUhwlC6
+JyED3+Ytge1T60nurZvUw5FAtPEKJoyrwWSZE7t6/DQ9laiQ5A3GYPKhYVr1
+bRhZk8RnToazYHBSTXC0A/+6cgW/qUjD3ZnBNFtjhum62TTi6WpqNENMB48m
+wSZlPWcmCKHVPYXUZE2KpNw9jW7RJcKZw8W0LrCR+mXX0Rb3RNozwWPuLh6S
+Z7s6iGN2OQi3RTUfkQRjt9EXrMtHwPhnczFEqeH2mCpJgsiSzTSpUd9PWssK
+71jSjjmPSbjyJvfINBNbQ3pJy3MH2ti8lG4WWbNk6xo0DloO0xMKwGCpM8tK
+3w2XLOuozGMx4/lW0p7bPLQWatHQJ5OkcHxwXFLD5F9thpY/XcEmZhWWVfFV
+Pd5PqKrVGy00z2jcK8DLsz+FheeTWesMF27RH0vAKmGCW+edQ1cMWrB6zhXe
+DFnDiFcEGxmScjkm03GuQxQmF5tBR5oKNaH28OCsDBIDeWxxmztkrh/FyJ2m
+6opZQajwzqfze3fQWD8NOeSTD7tb9uF1ywzsOm7Ekloz0HdtIxVXDmBVqYx+
+n5UNbmpjyBlbRrLnrOeK+uSsObWNmZ/bwC5vltDPF4vpyIvHdNROn+kMxsl4
+iQ7vhDtR7YiSOp1YiQP6H7LGe0NEnGBPU1JXsil7CQi2FuPVTlfa7dePr+a5
+QXHeJ9BuL4SIBRtgk+Af9O04Rr3jl7OlE+7gFRbEKm5akZVRlySmJtn0AhrQ
+16UyjBTlcZ+J5sIt3gG3uC4xvLzYy10uGKZhDRfI6VIBzPr5KDcQFYl30grU
+RgevobLkpVrq1ckdu7+Q7YhvxIOCTurpX4SKZG92429P+nB7HWlPCiOKoVr1
+WEkg9MYP4cdet6kwYCZVjH7EsfwjRP/eXlV5ZQBoi9RU0/AMa7Maaflbe3W+
+1AHu1kbSwWWTxOAHBX0UoOMCy/RYeFQB135qA3RO6LhN2xyo30/BzNzNl9XF
+lOLXJe2kJ/QX4u5DoInfRWr7i9Cl3IY7ujFVdffSNHANFZPSyQZy/9xGdLYz
+BMcXv0OlPw+F7VuZpwUPxxZ4wne3RNh32AAs5pUwWZYtrZNPYcXFGar4iB3U
+pdIZVj8wYObzecyqOgB6u9eiQqoj2vO2bER0ANftamP/PowBSZMXyAU70Vlm
+RoN/tIWyyZbmMWYHPm5Z0FC8k+5bqMH10YeJqeQcOpxyYNXkInnzJJVuibyO
+Zya0aBOncBU9LMEqaQDMfH2I5kRKmS5uGtgqKzD3iYpODsTAyT5jZtUvYTb9
+JbRpvwn74HkheyQ6yMRXVuH/C5c+kg==
+           "]|>, 
+        "Parameters" -> <|
+         "OutputDimensions" -> {3}, "ClassCount" -> 97, "$Dimensions" -> {
+            NeuralNetworks`LengthVar[1269222718]}, "$OutputDimension" -> 3|>, 
+        "Inputs" -> <|"Input" -> NeuralNetworks`TensorT[{
+             NeuralNetworks`LengthVar[1269222718]}, 
+            NeuralNetworks`IndexIntegerT[1, 97]]|>, 
+        "Outputs" -> <|"Output" -> NeuralNetworks`TensorT[{
+             NeuralNetworks`LengthVar[1269222718], 3}, 
+            NeuralNetworks`RealT]|>|>, 
+      "2" -> <|"Type" -> "LongShortTermMemory", 
+        "Arrays" -> <|
+         "InputGateInputWeights" -> 
+          RawArray["Real32",{{1.18300199508667, 
+            0.11837074160575867`, -0.6518692374229431}}], 
+          "InputGateStateWeights" -> 
+          RawArray["Real32",{{-1.0869240760803223`}}], "InputGateBiases" -> 
+          RawArray["Real32",{0.}], "OutputGateInputWeights" -> 
+          RawArray[
+            "Real32",{{-0.6663681864738464, -0.23157727718353271`, \
+-1.3150382041931152`}}], "OutputGateStateWeights" -> 
+          RawArray["Real32",{{-0.04342958703637123}}], "OutputGateBiases" -> 
+          RawArray["Real32",{0.}], "ForgetGateInputWeights" -> 
+          RawArray[
+            "Real32",{{-0.1416957527399063, -0.6149024963378906, \
+-1.1380068063735962`}}], "ForgetGateStateWeights" -> 
+          RawArray["Real32",{{2.066342353820801}}], "ForgetGateBiases" -> 
+          RawArray["Real32",{1.}], "MemoryGateInputWeights" -> 
+          RawArray["Real32",{{0.03892912343144417, 0.13807575404644012`, 
+            0.7015816569328308}}], "MemoryGateStateWeights" -> 
+          RawArray["Real32",{{-0.1414160579442978}}], "MemoryGateBiases" -> 
+          RawArray["Real32",{0.}]|>, 
+        "Parameters" -> <|
+         "OutputSize" -> 1, "Dropout" -> 
+          NeuralNetworks`ValidatedParameter[None], "$InputSize" -> 3, 
+          "$SequenceLength" -> NeuralNetworks`LengthVar[1269222718], 
+          "$CellStateConnectedQ" -> False|>, 
+        "Inputs" -> <|"Input" -> NeuralNetworks`TensorT[{
+             NeuralNetworks`LengthVar[1269222718], 3}, 
+            NeuralNetworks`RealT]|>, 
+        "Outputs" -> <|"Output" -> NeuralNetworks`TensorT[{
+             NeuralNetworks`LengthVar[1269222718], 1}, 
+            NeuralNetworks`RealT]|>, 
+        "States" -> <|
+         "State" -> NeuralNetworks`TensorT[{1}, NeuralNetworks`RealT], 
+          "CellState" -> 
+          NeuralNetworks`TensorT[{1}, NeuralNetworks`RealT]|>|>, 
+      "3" -> <|"Type" -> "SequenceLast", "Arrays" -> <||>, 
+        "Parameters" -> <||>, "Inputs" -> <|"Input" -> NeuralNetworks`TensorT[{
+             NeuralNetworks`LengthVar[1269222718], 1}, 
+            NeuralNetworks`RealT]|>, 
+        "Outputs" -> <|
+         "Output" -> NeuralNetworks`TensorT[{1}, NeuralNetworks`RealT]|>|>|>, 
+    "Edges" -> {
+     NeuralNetworks`NetPath["Nodes", "1", "Inputs", "Input"] -> 
+      NeuralNetworks`NetPath["Inputs", "Input"], 
+      NeuralNetworks`NetPath["Nodes", "2", "Inputs", "Input"] -> 
+      NeuralNetworks`NetPath["Nodes", "1", "Outputs", "Output"], 
+      NeuralNetworks`NetPath["Nodes", "3", "Inputs", "Input"] -> 
+      NeuralNetworks`NetPath["Nodes", "2", "Outputs", "Output"], 
+      NeuralNetworks`NetPath["Outputs", "Output"] -> 
+      NeuralNetworks`NetPath["Nodes", "3", "Outputs", "Output"]}, 
+    "Inputs" -> <|
+     "Input" -> NetEncoder[
+       "Characters", <|"Encoding" -> NeuralNetworks`ValidatedParameter[
+           MXNetLink`CharacterEncodingData[
+           1, RawArray["UnsignedInteger8",{128, 0, 0, 128, 128, 128, 128, 128,
+              128, 128, 128, 1, 2, 128, 128, 128, 128, 128, 128, 128, 128, 
+             128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 128, 
+             3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 
+             21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 
+             37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 
+             53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 
+             69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 
+             85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 128}], 
+            RawArray["UnsignedInteger8",{9, 10, 32, 33, 34, 35, 36, 37, 38, 
+             39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 
+             55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 
+             71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 
+             87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 
+             102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 
+             115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126}], 97,
+             Automatic]], "OutputForm" -> "Index", "IgnoreCase" -> False, 
+         "Count" -> 97, "TargetLength" -> All, "$TargetLength" -> 
+         NeuralNetworks`LengthVar[715248120], "$Padding" -> Automatic, 
+         "$Version" -> "14.0.2"|>, 
+        NeuralNetworks`TensorT[{
+          NeuralNetworks`LengthVar[1269222718]}, 
+         NeuralNetworks`IndexIntegerT[1, 97]]]|>, 
+    "Outputs" -> <|
+     "Output" -> NeuralNetworks`TensorT[{1}, NeuralNetworks`RealT]|>, 
+    "InteriorStates" -> <|{2, "State"} -> 
+      NeuralNetworks`NetPath["Nodes", "2", "States", "State"], {
+       2, "CellState"} -> 
+      NeuralNetworks`NetPath["Nodes", "2", "States", "CellState"]|>|>, <|
+   "Version" -> "14.0.2", "Unstable" -> False|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.9172433808967075`*^9},
+ CellLabel->"Out[66]=",ExpressionUUID->"b97e6023-1625-8548-911a-b8595f5ba06b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"net", "[", 
+  RowBox[{"{", 
+   RowBox[{"\"\<hello\>\"", ",", "\"\<goodbye\>\""}], "}"}], "]"}]], "Input",
+ CellChangeTimes->{{3.9172433906882763`*^9, 3.9172433906892567`*^9}},
+ CellLabel->"In[67]:=",ExpressionUUID->"18b1271a-afb1-7b4c-9707-ede9ffcd3db5"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", "0.07839655131101608`", "}"}], ",", 
+   RowBox[{"{", "0.0637987032532692`", "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.917243391227955*^9},
+ CellLabel->"Out[67]=",ExpressionUUID->"ff08ca11-88cd-ef46-a3d9-04bf154c8483"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"Stateless", ":"}], "*)"}]], "Input",
+ CellChangeTimes->{{3.917243403156868*^9, 
+  3.917243407241247*^9}},ExpressionUUID->"5d9bdf63-6ca6-044d-855a-\
+a881d2583ee8"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"net", "[", "\"\<hello\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.917243411863882*^9, 3.917243411864855*^9}},
+ CellLabel->"In[69]:=",ExpressionUUID->"62ce1098-5568-8e43-b82d-3e0ee0f48617"],
+
+Cell[BoxData[
+ RowBox[{"{", "0.07839655131101608`", "}"}]], "Output",
+ CellChangeTimes->{3.917243419108967*^9},
+ CellLabel->"Out[69]=",ExpressionUUID->"e9a7aa5a-f69c-a34b-ab91-d8abe03069b7"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{647, 390},
+WindowMargins->{{Automatic, 169}, {150.5, Automatic}},
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"f3483cfc-6c2b-0740-801e-19430cfbbb82"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 161, 3, 98, "Title",ExpressionUUID->"eb4ffc4f-a992-354f-8d07-131e8689b846"],
+Cell[744, 27, 265, 7, 58, "Text",ExpressionUUID->"e8e83650-b173-114a-b5b6-63cb519fb677"],
+Cell[CellGroupData[{
+Cell[1034, 38, 212, 4, 53, "Subtitle",ExpressionUUID->"bda94f80-ac58-ad4f-ad3c-34f242cf2c9b"],
+Cell[CellGroupData[{
+Cell[1271, 46, 419, 9, 28, "Input",ExpressionUUID->"30dcc323-e1e4-e84c-a9ab-159985dab1a7"],
+Cell[1693, 57, 144837, 2619, 66, "Output",ExpressionUUID->"f0c81918-4e87-c843-9c2e-cf88a2b82971"]
+}, Open  ]],
+Cell[146545, 2679, 758, 24, 48, "Input",ExpressionUUID->"d4c26bf3-2334-5744-a67a-4823e159f7b3"],
+Cell[CellGroupData[{
+Cell[147328, 2707, 289, 6, 28, "Input",ExpressionUUID->"a69b10c4-2e1f-b34b-bbac-42bbe93b0865"],
+Cell[147620, 2715, 897, 27, 71, "Output",ExpressionUUID->"8e65c9c2-fb2c-f94f-864b-b279c7c70790"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[148566, 2748, 211, 4, 53, "Subtitle",ExpressionUUID->"c03ec753-1fa9-d547-8bbd-9e16e4e14fe7"],
+Cell[CellGroupData[{
+Cell[148802, 2756, 605, 14, 86, "Input",ExpressionUUID->"0b81ce99-75a1-ca4e-92de-ade24be471d7"],
+Cell[149410, 2772, 32469, 619, 62, "Output",ExpressionUUID->"b97e6023-1625-8548-911a-b8595f5ba06b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[181916, 3396, 278, 5, 28, "Input",ExpressionUUID->"18b1271a-afb1-7b4c-9707-ede9ffcd3db5"],
+Cell[182197, 3403, 279, 6, 32, "Output",ExpressionUUID->"ff08ca11-88cd-ef46-a3d9-04bf154c8483"]
+}, Open  ]],
+Cell[182491, 3412, 203, 5, 28, "Input",ExpressionUUID->"5d9bdf63-6ca6-044d-855a-a881d2583ee8"],
+Cell[CellGroupData[{
+Cell[182719, 3421, 213, 3, 28, "Input",ExpressionUUID->"62ce1098-5568-8e43-b82d-3e0ee0f48617"],
+Cell[182935, 3426, 190, 3, 32, "Output",ExpressionUUID->"e9a7aa5a-f69c-a34b-ab91-d8abe03069b7"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
